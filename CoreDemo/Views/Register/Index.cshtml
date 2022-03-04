@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/UserLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<section class="main-content-w3layouts-agileits">
+    <div class="container">
+        <h3 class="tittle">Register Now</h3>
+        <div class="inner-sec">
+            <div class="login p-5 bg-light mx-auto mw-100">
+                <form method="post">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom01">Adınız Soyadınız</label>
+
+                            <input type="text" class="form-control" id="validationDefault01" name="WriterName" placeholder="" required="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="validationCustom02">Mail Adresi</label>
+                            <input type="email" class="form-control" id="validationDefault02" name="WriterMail" placeholder="" required="">
+                        </div>
+                    </div>
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword2 mb-2">Şifre</label>
+                            <input type="password" class="form-control" id="password" name="WriterPassword" placeholder="" required="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword2 mb-2">Şifre Onayla</label>
+                            <input type="password" class="form-control" id="password2" name="WriterConfirmPassword" placeholder="" required="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1 mb-2">Görsel Dosya Yolu</label>
+                            <input type="text" class="form-control" id="WriterImage" name="WriterImage" placeholder="" required="">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputPassword1 mb-2">Şehirler</label>
+                            <br />
+                            <select class="dropdown-header">
+                                @foreach (var item in ViewBag.city)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" id="button" class="btn btn-primary submit mb-4" >Kayıt Ol</button>
+                    <p>
+                        <a href="#" id="btn1">Tüm şartları okudum.Kabul ediyorum.</a>
+                    </p>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+
+    document.getElementById('btn1').onclick = function x() {
+        swal("Sitemizde verdiğiniz mail adresi üzerinden bilgi ve haber e-postaları spam ölçüsüne varmadan gönderilmeye devam edilecetir. Eğer eposta bülteninden çıkmak isterseniz mail ileti dizisini durdurabilirsiniz, şifre ve mail adresleriniz şifrelenmiş formatta herhangi bir kullanıcının görmeyeği şekilde veri tabanımızda saklanmaktadır.");
+    }
+
+    document.getElementById('button').onclick = function myFunction() {
+        x = document.getElementById("password").value;
+        y = document.getElementById("password2").value;
+        if (x != y) {
+            swal("Hata!", "Şifreler Uyuşmuyor!", "error");
+
+            return false
+        }
+    }
+</script>
