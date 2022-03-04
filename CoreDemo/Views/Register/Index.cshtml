@@ -1,4 +1,5 @@
-﻿
+﻿@model EntityLayer.Concrete.Writer
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/UserLayout.cshtml";
@@ -7,34 +8,45 @@
 
 <section class="main-content-w3layouts-agileits">
     <div class="container">
-        <h3 class="tittle">Register Now</h3>
+        <h3 class="tittle">Yazar Kayıt Sayfası</h3>
         <div class="inner-sec">
             <div class="login p-5 bg-light mx-auto mw-100">
-                <form method="post">
+                @using (Html.BeginForm("Index", "Register", FormMethod.Post))
+                {
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom01">Adınız Soyadınız</label>
 
-                            <input type="text" class="form-control" id="validationDefault01" name="WriterName" placeholder="" required="">
+                            @*<input type="text" class="form-control" id="validationDefault01" name="WriterName" placeholder="" required="">*@
+                            @Html.TextBoxFor(x => x.WriterName , new {@class= "form-control"})
+                            @Html.ValidationMessageFor(x => x.WriterName,"" , new { @class="text-danger"})
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="validationCustom02">Mail Adresi</label>
-                            <input type="email" class="form-control" id="validationDefault02" name="WriterMail" placeholder="" required="">
+                            @*<input type="email" class="form-control" id="validationDefault02" name="WriterMail" placeholder="" required="">*@
+                            @Html.TextBoxFor(x => x.WriterMail, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.WriterMail, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-row">
 
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword2 mb-2">Şifre</label>
-                            <input type="password" class="form-control" id="password" name="WriterPassword" placeholder="" required="">
+                            @*<input type="password" class="form-control" id="password" name="WriterPassword" placeholder="" required="">*@
+                            @Html.TextBoxFor(x => x.WriterPassword, new { id = "password", @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword2 mb-2">Şifre Onayla</label>
-                            <input type="password" class="form-control" id="password2" name="WriterConfirmPassword" placeholder="" required="">
+                            @*<input type="password" class="form-control" id="password2" name="WriterConfirmPassword" placeholder="" required="">*@
+                            @Html.TextBoxFor(x => x.WriterPassword, new { id = "password2", @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.WriterPassword, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword1 mb-2">Görsel Dosya Yolu</label>
-                            <input type="text" class="form-control" id="WriterImage" name="WriterImage" placeholder="" required="">
+                            @*<input type="text" class="form-control" id="WriterImage" name="WriterImage" placeholder="" required="">*@
+                            @Html.TextBoxFor(x => x.WriterImage, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.WriterImage, "", new { @class = "text-danger" })
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleInputPassword1 mb-2">Şehirler</label>
@@ -48,11 +60,11 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" id="button" class="btn btn-primary submit mb-4" >Kayıt Ol</button>
+                    <button type="submit" id="button" class="btn btn-primary submit mb-4">Kayıt Ol</button>
                     <p>
                         <a href="#" id="btn1">Tüm şartları okudum.Kabul ediyorum.</a>
                     </p>
-                </form>
+                }
 
             </div>
         </div>
@@ -61,7 +73,7 @@
 <script>
 
     document.getElementById('btn1').onclick = function x() {
-        swal("Sitemizde verdiğiniz mail adresi üzerinden bilgi ve haber e-postaları spam ölçüsüne varmadan gönderilmeye devam edilecetir. Eğer eposta bülteninden çıkmak isterseniz mail ileti dizisini durdurabilirsiniz, şifre ve mail adresleriniz şifrelenmiş formatta herhangi bir kullanıcının görmeyeği şekilde veri tabanımızda saklanmaktadır.");
+        swal("Site Kabul Şartları","Sitemizde verdiğiniz mail adresi üzerinden bilgi ve haber e-postaları spam ölçüsüne varmadan gönderilmeye devam edilecetir. Eğer eposta bülteninden çıkmak isterseniz mail ileti dizisini durdurabilirsiniz, şifre ve mail adresleriniz şifrelenmiş formatta herhangi bir kullanıcının görmeyeği şekilde veri tabanımızda saklanmaktadır.");
     }
 
     document.getElementById('button').onclick = function myFunction() {

@@ -1,6 +1,8 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,10 +30,30 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult Index(Writer w)
         {
+            WriterValidator wv = new WriterValidator();
+            ValidationResult results = wv.Validate(w);
+            if (results.IsValid)
+            {
                 w.WriterStatus = true;
                 w.WriterAbout = "Deneme";
                 wm.WriterAdd(w);
                 return RedirectToAction("Index", "Blog");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            List<string> city = new List<string>();
+            city.Add("İstanbul");
+            city.Add("İzmir");
+            city.Add("Ankara");
+            city.Add("Kayseri");
+            ViewBag.city = city;
+            return View();
+          
         }
     }
 }
