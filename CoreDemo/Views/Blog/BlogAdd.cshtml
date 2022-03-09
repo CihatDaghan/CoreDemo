@@ -10,21 +10,21 @@
 {
     @Html.Label("Blog Başlığı")
     @Html.TextAreaFor(x => x.BlogTitle, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.BlogTitle)
+    @Html.ValidationMessageFor(x => x.BlogTitle,"", new { @class = "text-danger" })
     <br />
     @Html.Label("Blog Görseli")
     @Html.TextAreaFor(x => x.BlogImage, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.BlogImage)
+    @Html.ValidationMessageFor(x => x.BlogImage,"", new { @class = "text-danger" })
     <br />
     @Html.Label("Blog Küçük Görsel")
     @Html.TextBoxFor(x => x.BlogTumbnailImage, new { @class = "form-control" })
     <br />
     @Html.Label("Kategori")
-    @Html.TextBoxFor(x => x.CategoryID, new { @class = "form-control" })
+    @Html.DropDownListFor(x => x.CategoryID,(List<SelectListItem>)ViewBag.cv, new { @class = "form-control" })
     <br />
     @Html.Label("Blog İçeriği")
     @Html.TextAreaFor(x => x.BlogContent, 15, 3, new { @class = "form-control" })
-    @Html.ValidationMessageFor(x => x.BlogContent)
+    @Html.ValidationMessageFor(x => x.BlogContent,"" , new { @class = "text-danger" })
     <br />
     <button class="btn btn-info">Blogu Kaydet</button>
 }
