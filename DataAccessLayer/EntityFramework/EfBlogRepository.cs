@@ -18,8 +18,17 @@ namespace DataAccessLayer.EntityFramework
             using (var c = new Context())
             {
                 return c.Blogs.Include(x => x.Category).ToList();
+
             }
         }
+        public List<Blog> GetListWithCategoryLastFive()
+        {
+            using (var c = new Context())
+            {
+                return c.Blogs.Include(x => x.Category).OrderByDescending(x => x.BlogCreateDate).Take(5).ToList();
+            }
+        }
+
 
         public List<Blog> GetListWithCategoryWithByWriter(int id)
         {

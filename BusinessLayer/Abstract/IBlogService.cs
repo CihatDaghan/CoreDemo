@@ -10,6 +10,7 @@ namespace BusinessLayer.Abstract
     interface IBlogService:IGenericService<Blog>
     {
         List<Blog> GetBlogListWithCategory();
+        List<Blog> GetListWithCategoryLastFive();
         List<Blog> GetBlogByWriter(int id);
     }
 }

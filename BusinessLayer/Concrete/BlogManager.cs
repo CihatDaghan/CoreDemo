@@ -66,5 +66,10 @@ namespace BusinessLayer.Concrete
         {
             _blogDal.Update(t);
         }
+
+        public List<Blog> GetListWithCategoryLastFive()
+        {
+            return _blogDal.GetListWithCategoryLastFive();
+        }
     }
 }
