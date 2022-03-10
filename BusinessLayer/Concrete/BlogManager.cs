@@ -23,7 +23,6 @@ namespace BusinessLayer.Concrete
 
         }
 
-
         public List<Blog> GetBlogListWithCategory()
         {
             return _blogDal.GetListWithCategory();
@@ -65,7 +64,7 @@ namespace BusinessLayer.Concrete
 
         public void TUpdate(Blog t)
         {
-            throw new NotImplementedException();
+            _blogDal.Update(t);
         }
     }
 }

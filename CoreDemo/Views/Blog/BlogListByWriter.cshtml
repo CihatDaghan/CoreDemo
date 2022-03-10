@@ -13,7 +13,7 @@
         <th>Oluşturulma Tarihi</th>
         <th>Kategori</th>
         <th>Durumu</th>
-        <th>Sil</th>
+        <th>Sil</th> 
         <th>Düzenle</th>
     </tr>
     @foreach (var item in Model)
@@ -32,11 +32,11 @@
                 <td>Pasif</td>
             }
             <td><a href="/Blog/DeleteBlog/@item.BlogID" class="btn btn-danger" onclick="return confirm('Silmek İstediğinize Emin misiniz?')">Sil</a></td>
-            <td><a href="#" class="btn btn-info">Düzenle</a></td>
+            <td><a href="/Blog/editBlog/@item.BlogID" class="btn btn-info">Düzenle</a></td>
         </tr>
     }
 </table>
 
-<a href="#" class="btn btn-primary">Yeni Blog Oluştur</a>
+<a href="/Blog/BlogAdd" class="btn btn-primary">Yeni Blog Oluştur</a>
 
 
