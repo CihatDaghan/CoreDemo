@@ -24,7 +24,7 @@
                                         <img src="@item.BlogImage" class="mr-2" alt="image"> @item.BlogTitle
                                     </td>
                                     <td>
-                                        <label class="badge badge-gradient-success">@item.Category.CategoryName</label>
+                                        <label class="badge badge-gradient-danger">@item.Category.CategoryName</label>
                                     </td>
                                     <td> @(((DateTime)item.BlogCreateDate).ToString("dd.MMM.yyyy")) </td>
                                     <td><a href="/Blog/BlogReadAll/@item.BlogID" class="btn-sm btn-dark">Detaylar</a></td>
