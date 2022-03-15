@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using FluentValidation.Results;
@@ -27,29 +28,26 @@ namespace CoreDemo.Controllers
         {
             return View();
         }
-        [AllowAnonymous]
         public IActionResult Test()
         {
             return View();
         }
-        [AllowAnonymous]
         public PartialViewResult WriterNavBarPartial()
         {
             return PartialView();
         }
-        [AllowAnonymous]
         public PartialViewResult WriterFooterPartial()
         {
             return PartialView();
         }
-        [AllowAnonymous]
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var writervalues = wm.TGetByID(1);
+            var usermail = User.Identity.Name;
+            var id= wm.GetList().Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
+            var writervalues = wm.TGetByID(id);
             return View(writervalues);
         }
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult WriterEditProfile(Writer w)
         {

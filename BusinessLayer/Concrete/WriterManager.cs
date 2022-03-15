@@ -19,7 +19,7 @@ namespace BusinessLayer.Concrete
 
         public List<Writer> GetList()
         {
-            throw new NotImplementedException();
+            return _writerdal.GetListAll();
         }
 
         public List<Writer> GetWriterById(int id)

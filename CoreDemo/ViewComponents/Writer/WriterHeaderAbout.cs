@@ -1,5 +1,4 @@
 ﻿using BusinessLayer.Concrete;
-using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CoreDemo.ViewComponents.Writer
 {
-    public class WriterAboutOnDashboard:ViewComponent
+    public class WriterHeaderAbout : ViewComponent
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
         public IViewComponentResult Invoke()
@@ -19,6 +18,5 @@ namespace CoreDemo.ViewComponents.Writer
             var values = wm.GetWriterById(id);
             return View(values);
         }
-
     }
 }

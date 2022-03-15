@@ -13,11 +13,14 @@ namespace CoreDemo.Controllers
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
-        [AllowAnonymous]
+        WriterManager wm = new WriterManager(new EfWriterRepository());
+
         public IActionResult Index()
         {
+            var usermail = User.Identity.Name;
+            var id = wm.GetList().Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
             ViewBag.blogCount = bm.GetList().Count().ToString();
-            ViewBag.writerBlogCount = bm.GetBlogByWriter(1).Count().ToString();
+            ViewBag.writerBlogCount = bm.GetBlogByWriter(id).Count().ToString();
             ViewBag.categoriesCount = cm.GetList().Count.ToString();
             return View();
         }

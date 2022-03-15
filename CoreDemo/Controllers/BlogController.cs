@@ -13,11 +13,12 @@ using System.Threading.Tasks;
 
 namespace CoreDemo.Controllers
 {
-    [AllowAnonymous]
     public class BlogController : Controller
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
+        WriterManager wm = new WriterManager(new EfWriterRepository());
+
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();
@@ -33,7 +34,9 @@ namespace CoreDemo.Controllers
 
         public IActionResult BlogListByWriter()
         {
-            var values= bm.GetListWithCategoryWithByWriterBm(1);
+            var usermail = User.Identity.Name;
+            var id = wm.GetList().Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
+            var values= bm.GetListWithCategoryWithByWriterBm(id);
             return View(values);
         }
         [HttpGet]
@@ -52,6 +55,8 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult BlogAdd(Blog p)
         {
+            var usermail = User.Identity.Name;
+            var id = wm.GetList().Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
             //Blog eklemek için validasyon 
             BlogValidator bv = new BlogValidator();
             ValidationResult results = bv.Validate(p);
@@ -59,7 +64,7 @@ namespace CoreDemo.Controllers
             {
                 p.BlogStatus = true;
                 p.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                p.WriterID = 1;
+                p.WriterID = id;
                 bm.TAdd(p);
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
@@ -102,6 +107,9 @@ namespace CoreDemo.Controllers
         [HttpPost]
         public IActionResult editBlog(Blog b)
         {
+            var usermail = User.Identity.Name;
+            var id = wm.GetList().Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
+
             CategoryManager cm = new CategoryManager(new EfCategoryRepository());
             List<SelectListItem> categoryvalues = (from x in cm.GetList()
                                                    select new SelectListItem
@@ -111,7 +119,7 @@ namespace CoreDemo.Controllers
                                                    }).ToList();
             ViewBag.cv = categoryvalues;
 
-            b.WriterID = 1;
+            b.WriterID = id;
             b.BlogStatus = true;
             bm.TUpdate(b);
             return RedirectToAction("BlogListByWriter");

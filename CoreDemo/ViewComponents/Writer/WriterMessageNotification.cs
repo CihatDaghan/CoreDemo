@@ -12,9 +12,11 @@ namespace CoreDemo.ViewComponents.Writer
     public class WriterMessageNotification:ViewComponent
     {
         Message2Manager mm = new Message2Manager(new EfMessage2Repository());
+        WriterManager wm = new WriterManager(new EfWriterRepository());
         public IViewComponentResult Invoke()
         {
-            int id = 1;
+            var usermail = User.Identity.Name;
+            var id = wm.GetList().Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
             var values = mm.GetInboxListByWriter(id);
             return View(values);
         }
