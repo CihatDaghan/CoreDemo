@@ -1,0 +1,16 @@
+﻿@model EntityLayer.Concrete.Message2
+
+@{
+    ViewData["Title"] = "GetMessageDetails";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<h1>Gelen Mesajlar</h1>
+    @Html.HiddenFor(x => x.MessageID)
+    <b>@Html.Label("Mesaj Konusu")</b>
+    @Html.TextBoxFor(x => x.Subject, new { disabled = "disabled", @class = "form-control" })
+    <br />
+    <b>@Html.Label("Mesaj İçeriği")</b>
+    @Html.TextAreaFor(x => x.MessageDetails,20,3, new { disabled = "disabled", @class = "form-control" })
+    <br />
+    <a href="/Message/Inbox" class="btn btn-danger">Mesajlara Dön</a>
