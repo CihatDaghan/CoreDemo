@@ -26,8 +26,8 @@
     <tr>
         <th>#</th>
         <th>Kategori Adı</th>
-        <th>Pasif Yap</th>
-        <th>Aktif Yap</th>
+        <th>Kategori Durumu</th>
+        <th>Durumu Düzenle</th>
         <th>Düzenle</th>
     </tr>
     @foreach (var item in Model)
@@ -35,8 +35,23 @@
         <tr>
             <td>@item.CategoryID</td>
             <td>@item.CategoryName</td>
-            <td><a href="#" class="btn btn-dark">Pasif Yap</a></td>
-            <td><a href="#" class="btn btn-danger">Aktif Yap</a></td>
+            @if (item.CategoryStatus == true)
+            {
+                <td style="color:green">AKTİF</td>
+            }
+            else
+            {
+                <td style="color:red">PASİF</td>
+            }
+            @if (item.CategoryStatus == true)
+            {
+                <td><a href="/Admin/Category/CategoryMakePassive/@item.CategoryID" onclick="return confirm('Pasif Yapmak İstediğinize Emin Misiniz?')" class="btn btn-dark">Pasif Yap</a></td>
+            }
+            else
+            {
+                <td><a href="/Admin/Category/CategoryMakeActive/@item.CategoryID" onclick="return confirm('Aktif Yapmak İstediğinize Emin Misiniz?')" class="btn btn-danger">Aktif Yap</a></td>
+
+            }
             <td><a href="#" class="btn btn-success">Düzenle</a></td>
         </tr>
     }
@@ -44,4 +59,5 @@
 <a href="#" class="btn btn-primary">Yeni Kategori</a>
 <br />
 <br />
-@Html.PagedListPager((IPagedList)Model,page=>Url.Action("Index",new {page}))
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+

@@ -48,5 +48,19 @@ namespace CoreDemo.Areas.Admin.Controllers
             //
             return View();
         }
+        public IActionResult CategoryMakePassive(int id)
+        {
+            var values = cm.TGetByID(id);
+            values.CategoryStatus = false;
+            cm.TUpdate(values);
+            return RedirectToAction("Index");
+        }
+        public IActionResult CategoryMakeActive(int id)
+        {
+            var values = cm.TGetByID(id);
+            values.CategoryStatus = true;
+            cm.TUpdate(values);
+            return RedirectToAction("Index");
+        }
     }
 }
