@@ -1,0 +1,82 @@
+﻿@model UserSignUpViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DEPOKO | Kayıt Ol</title>
+
+    <link href="~/inspinia-gh-pages/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/inspinia-gh-pages/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="~/inspinia-gh-pages/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="~/inspinia-gh-pages/css/animate.css" rel="stylesheet">
+    <link href="~/inspinia-gh-pages/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">DA+</h1>
+
+            </div>
+            <h3>KAYIT EKRANI</h3>
+            <p>Burdan yeni bir hesap oluşturun.</p>
+            <form class="m-t" role="form" asp-action="Index">
+                <div class="form-group">
+                    <span asp-validation-for="@Model.NameSurname"></span>
+                    <input type="text" class="form-control" asp-for="@Model.NameSurname" placeholder="Adınız Soyadınız" required="">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Mail Adresi" asp-for="@Model.Mail" required="">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Kullanıcı Adınız" asp-for="@Model.UserName" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Şifre" asp-for="@Model.Password" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Şifre Tekrar" asp-for="@Model.ConfirmPassword" required="">
+                </div>
+                <div class="form-group">
+                    <span asp-validation-for="@Model.IsAcceptTheContract"></span>
+                    <div class="checkbox i-checks"><label> <input type="checkbox" asp-for="@Model.IsAcceptTheContract" required=""><i></i> Kullanım şartlarını okudum.Kabul Ediyorum. </label></div>
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">Kayıt Ol</button>
+
+                <p class="text-muted text-center"><small>Biz Hesabınız Var Mı?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="/RegisterUser/Login/">Giriş Yap</a>
+                @* Div içerisinde modelonly sayesinde identy mesajlarını kullanıcaya geri döndürüyoruz *@
+                <div class="text-danger" asp-validation-summary="ModelOnly">   </div>
+            </form>
+            <p class="m-t"> <small>Depoko Grup Adını Cihat Dağhan Tarafından Kodlanmıştır Tüm Hakları Sakladır &copy; @DateTime.Now.Year</small> </p>
+        </div>
+    </div>
+    <!-- Mainly scripts -->
+    <script src="~/inspinia-gh-pages/js/jquery-3.1.1.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/popper.min.js"></script>
+    <script src="~/inspinia-gh-pages/js/bootstrap.js"></script>
+    <!-- iCheck -->
+    <script src="~/inspinia-gh-pages/js/plugins/iCheck/icheck.min.js"></script>
+    <script>$(document).ready(function(){
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });</script>
+</body>
+
+</html>
+
+

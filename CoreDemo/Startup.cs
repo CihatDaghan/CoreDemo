@@ -1,3 +1,5 @@
+using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -26,6 +28,21 @@ namespace CoreDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //Projeye Identity dahil etmek için yazýlan kodlar
+            services.AddDbContext<Context>();
+            services.AddIdentity<AppUser,AppRole>(x=> {
+                //Identitynin bazý zorunluklarýný ortadan kaldýrmak için kullanýlýr.
+                //Þifrede RequireUppercase büyük harf zorunluluðunu kaldýrma
+                x.Password.RequireUppercase = false;
+
+            
+            }).AddEntityFrameworkStores<Context>();
+
+            //--Identity Son
+
+
+
             services.AddControllersWithViews();
 
             //Sisteme Authentication ayalarý için gerekli
@@ -73,10 +90,12 @@ namespace CoreDemo
 
             app.UseEndpoints(endpoints =>
             {
+                //Areayý projeye dahil etmek için kullanýlýyor.
                 endpoints.MapControllerRoute(
                 name: "areas",
                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
               );
+                //Area Bitiþ
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Blog}/{action=Index}/{id?}");
