@@ -11,12 +11,17 @@
     <tr>
         <td>ID</td>
         <td>ADI SOYADI</td>
+        <td>SİL</td>
+        <td>DÜZENLE</td>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
             <td>@item.ID</td>
             <td>@item.Name</td>
+            <td><a href="/Employee/DeleteEmployee/@item.ID" class="btn btn-outline-danger">SİL</a></td>
+            <td><a href="/Employee/EditEmployee/@item.ID" class="btn btn-outline-success">DÜZENLE</a></td>
         </tr>
     }
 </table>
+<a href="/Employee/AddEmployee" class="btn btn-outline-primary">Yeni Çalışan Girişi</a>
