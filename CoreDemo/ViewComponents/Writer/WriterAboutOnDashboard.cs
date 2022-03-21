@@ -12,9 +12,11 @@ namespace CoreDemo.ViewComponents.Writer
     public class WriterAboutOnDashboard:ViewComponent
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
+        Context c = new Context();
         public IViewComponentResult Invoke()
         {
-            var usermail = User.Identity.Name;
+            var username = User.Identity.Name;
+            var usermail =  c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
             var id = wm.GetList().Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
             var values = wm.GetWriterById(id);
             return View(values);
