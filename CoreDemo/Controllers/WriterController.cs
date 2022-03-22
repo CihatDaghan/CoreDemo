@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using BusinessLayer.ValidationRules;
+using CoreDemo.Models;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
@@ -50,37 +51,31 @@ namespace CoreDemo.Controllers
             return PartialView();
         }
         [HttpGet]
-        public IActionResult WriterEditProfile()
+        public async Task<IActionResult> WriterEditProfile()
         {
-            Context c = new Context();
-            var username = User.Identity.Name;
-            var usermail = c.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
-            //var id = wm.GetList().Where(x => x.WriterMail == usermail).Select(y => y.WriterID).FirstOrDefault();
-            //var writervalues = wm.TGetByID(id);
-            //return View(writervalues);
-            var id = c.Users.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();
-            var values = c.Users.Where(x => x.Id == id).FirstOrDefault();
-            return View(values);
-
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            UserUpdateViewModel model = new UserUpdateViewModel();
+            model.mail = values.Email;
+            model.namesurname = values.NameSurname;
+            model.imageurl = values.ImageUrl;
+            model.username = values.UserName;
+            return View(model);
         }
         [HttpPost]
-        public IActionResult WriterEditProfile(Writer w)
+        public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel model)
         {
-            WriterValidator wl = new WriterValidator();
-            ValidationResult result = wl.Validate(w);
-            if (result.IsValid)
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            values.Email = model.mail;
+            values.NameSurname = model.namesurname;
+            values.ImageUrl = model.imageurl;
+            if (model.password != null)
             {
-                wm.TUpdate(w);
-                return RedirectToAction("Index", "Dashboard");
+                values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.password);
             }
-            else
-            {
-                foreach (var item in result.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
-            return View();
+            var result = _userManager.UpdateAsync(values);
+            return RedirectToAction("Index", "Dashboard");
+
         }
+       
     }
 }
