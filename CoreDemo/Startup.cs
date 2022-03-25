@@ -45,7 +45,7 @@ namespace CoreDemo
 
             services.AddControllersWithViews();
 
-            //Sisteme Authentication ayalarý için gerekli
+
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()

@@ -59,5 +59,6 @@
 <a href="#" class="btn btn-primary">Yeni Kategori</a>
 <br />
 <br />
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
-
+<div style="text-align:center">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+</div>
